@@ -1,0 +1,514 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm,enumerate,braket, verbatim}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+
+% Theorems.
+\theoremstyle{plain}
+	\newtheorem{thm}{Theorem}
+	\numberwithin{thm}{section}
+	\newtheorem*{thm*}{Theorem}
+	\newtheorem{cor}[thm]{Corollary}
+	\newtheorem*{cor*}{Corollary}
+	\newtheorem{prop}[thm]{Proposition}
+	\newtheorem*{prop*}{Proposition}
+	\newtheorem{lem}[thm]{Lemma}
+	\newtheorem*{lem*}{Lemma}
+	\newtheorem{ex}[thm]{Exercise}
+	\newtheorem*{ex*}{Exercise}
+	\newtheorem{claim}[thm]{Claim}
+	\newtheorem*{claim*}{Claim}
+	\newtheorem{conj}[thm]{Conjecture}
+	\newtheorem*{conj*}{Conjecture}
+	\newtheorem{question}[thm]{Question}
+	\newtheorem*{question*}{Question}
+	\newtheorem{obs}[thm]{Observation}
+	\newtheorem*{obs*}{Observation}
+\theoremstyle{definition}
+	\newtheorem{Def}[thm]{Definition}
+	\newtheorem*{Def*}{Definition}
+	\newtheorem{rmk}[thm]{Remark}
+	\newtheorem*{rmk*}{Remark}
+	\newtheorem{soln}[thm]{Solution}
+	\newtheorem{soln*}{Solution}
+	\newtheorem{note}[thm]{Note}
+	\newtheorem*{note*}{Note}
+	\newtheorem{eg}[thm]{Example}
+	\newtheorem*{eg*}{Example}	
+	\newtheorem{construction}[thm]{Construction}
+	\newtheorem*{construction*}{Construction}
+	\newtheorem{warning}[thm]{Warning}
+	\newtheorem*{warning*}{Warning}
+	
+\begin{document}
+\title{Math 3QC3 - Assignment 1 Solutions}
+\author{Matthew Yu | 400322243 | Yum77}
+\date{\today}
+\maketitle
+
+
+
+\begin{enumerate}
+ 
+    \item \textbf{(a)} V is a complex vector space with an inner product $\langle \cdot, \cdot \rangle$. Prove the Cauchy-Schwarz inequality for any $| \varphi \rangle, | \psi \rangle \in V$ we have $$\left| \langle \phi, \psi \rangle \right| \leq \|\phi| \|\psi\|$$
+
+    \textbf{Solution:}  
+
+    My understanding (Intuitive): This inequality says that the inner product (can be thought of how aligned vectors are) of two vectors is always less than  or equal to product of their magnitudes. If $|\langle \phi, \psi \rangle| = \|\phi|\|\psi \|$ then the two vectors are perfectly aligned (e.g they are scalar multiples of each other meaning they are linearly dependent). 
+    
+    The given inequality involves the absolute value of the inner product which can cause complications as they require reasoning about magnitude and phase of the inner product. Squaring both sides of the inequality gets rid of the absolute value giving: $$| \langle \phi, \psi \rangle |^2 \leq \| \phi \|^2 \| \psi \|^2.$$
+    This reduces the problem to working with squared magnitudes (real, non-negative quantities). Looking at the inequality, we can say this equality: $$| \langle \phi, \psi \rangle |^2 = \langle \phi, \phi \rangle \langle \psi, \psi \rangle$$
+    This is only true when $\psi = \lambda \phi$ $(\phi$ and $\psi$ are linearly independent) for some $\lambda$
+
+    \textbf{Proof:} Consider the scenario where $\psi = \lambda \phi$ for some $\lambda$. Through the properties of inner products, we get: 
+    \begin{align*}
+        | \langle \phi, \psi \rangle |^2 &= | \braket{\phi, \lambda \phi} |^2 \\
+        & = | \overline{\lambda} \braket{\phi, \phi}^2 | \\
+        & =|\overline{\lambda}|^2|\braket{\phi, \phi}^2 \\
+        & = |\lambda|^2\braket{\phi, \phi}^2
+    \end{align*}
+
+    Similarly we find:
+    \begin{align*}
+        \braket{\phi, \phi}\braket{\psi, \psi} &= \braket{\phi, \phi}\braket{\lambda\phi,\lambda\phi} \\
+        & = \braket{\phi,\phi}\lambda\overline{\lambda}\braket{\phi,\phi} \\
+        & = |\lambda|^2\braket{\phi,\phi}^2
+    \end{align*}
+    
+    This proves that $|\braket{\phi, \psi}|^2=\braket{\phi,\phi}\braket{\psi,\psi}$ if $\phi=\lambda\psi$ for some $\lambda$.
+
+    Next we look look at the scenario where $\psi \neq \lambda\phi$ for all $\lambda$. This implies $\psi \neq 0$, so $\braket{\psi,\psi}\neq0$.Using the properties of inner products, for any $\lambda$ we know:
+    \begin{align*}
+        \braket{\phi-\lambda\psi,\phi-\lambda\psi} &=\braket{\phi,\phi-\lambda\psi}-\lambda\braket{\psi,\phi-\lambda\psi} \\
+        &=\braket{\phi,\phi}-\overline{\lambda}\braket{\phi,\psi}-\lambda\braket{\psi,\phi}+|\lambda|^2\braket{\psi,\psi}
+    \end{align*}
+    We choose $\lambda= \frac{\braket{\phi,psi}}{\braket{\psi,\psi}}$,
+    \begin{align*}
+        \braket{\phi-\lambda\psi,\phi-\lambda\psi} &= \braket{\phi,\phi}-\frac{\braket{\psi,\phi}}{\braket{\psi,\psi}}\braket{\phi,\psi}-\frac{\braket{\phi,\psi}}{\braket{\psi,\psi}}\braket{\psi,\phi}+\frac{\braket{\phi,\psi}\braket{\psi,\phi}}{\braket{\psi,\psi}^2}\braket{\psi,\psi} \\
+        &= \braket{\phi,\phi}-\frac{\braket{\phi,\psi}\braket{\psi,\phi}}{\braket{\psi,psi}}
+    \end{align*}
+
+    Thus, we know that:
+    \begin{align*}
+        \braket{\phi,\phi}-\frac{\braket{\phi,\psi}\braket{\psi,\phi}}{\braket{\psi,\psi}} &>0. \\
+        \braket{\phi,\phi}\braket{\psi,\psi}-\braket{\phi,\psi}\overline{\braket{\phi,\psi}}&>0
+    \end{align*}
+    
+    We know the product of a complex number and its conjugate = its magnitude squared: $$\braket{\phi,\psi}\overline{\braket{\phi,\psi}} = |\braket{\phi,\psi}|^2$$
+    
+    Therefore we can conclude that the inequality $|\braket{\phi,\psi}|^2<\braket{\phi,\phi}\braket{\psi,\psi}$ if $\psi \neq \lambda\phi$ for all $\lambda$ holds.\\
+
+    \textbf{(b)} In quantum computing, the vectors are normalized $(||\psi||=1$). Briefly discuss why normalization matters physically.
+
+    \textbf{Solution:} 
+    Normalization ($\|\psi \|=1$) in quantum computing is crucial because the squared magnitudes of a quantum stat's components ($|\psi_i|^2$) represent probabilities of measurement outcomes. These probabilities must sum to 1 for physical consistency. Normalization will ensure the total probability will always be 1 making the system's changes and measurement results meaningful. Without normalization, the probabilistic interpretation of quantum mechanics would not work.
+    
+    \item \textbf{(a)} Let $\mathcal{H}$ be a Hilbert space and $W \in \mathcal{H}$ be a subspace. Define $W^\perp$ as its orthogonal complement. Show that $\mathcal{H= W \oplus W^\perp}$.
+
+    \textbf{Solution:} 
+    The expression $\mathcal{H= W \oplus W^\perp}$ tells us that any vector in $\mathcal{H}$ can be split into two smaller parts. One part in a subspace W, and the other in its orthogonal complement $W^\perp$. Given a vector $\psi$, it can be broken into $w$, the projection of $\psi$ onto W, and $w^\perp$ which component orthogonal to W. Together we get $$\psi=w+w^\perp.$$ 
+    
+    \textbf{Existence:} For any vector $\psi \in \mathcal{H}$, we can always find a component $w \in W$ by projecting $\psi$ onto W. The remaining part of $\psi$, is given by $w^\perp=\psi-w$, must lie in $W^\perp$, because $\psi-w$ is orthogonal to all vectors in W. This gives the decomposition $\psi=w+w^\perp, \text{where } w \in W \text{ and } w^\perp \in W^\perp.$\\
+
+    \textbf{Uniqueness:} Now suppose $\psi$ can be written in two different ways: $$\phi=w_1+w_1^\perp=w_2+w_2^\perp, \text{ where } w_1,w_2 \in W \text{ and } w_1^\perp,w_2^\perp \in W^\perp.$$ Subtracting these two expressions: $$w_1-w_2=w_2^\perp-w_1^\perp.$$ The left hand side is in W, and the right hand side is in $W^\perp.$ Since the only vector that lies in both W and $W^\perp$ is the zero vector, we can conclude that: $$w_1=w_2 \text{ and }w_1^\perp=w_2^\perp.$$ Thus, the decomposition is unique.
+
+    \textbf{Conclusion:} Therefore, since every vector $\phi \in \mathcal{H}$ can be uniquely decomposed into the sum of a vector from W and a vector from $W^\perp,$ we can conclude that: $$\mathcal{H}=W \oplus W^\perp.$$
+
+    (b) For qubits, identify $\{|0 \rangle, |1 \rangle\}$ as an orthonormal basis. If W is the 1-dimensional span of $|+ \rangle,$ with $|+ \rangle =\frac{1}{\sqrt{2}}(|0 \rangle + |1 \rangle)$, what is the $W^\perp$
+
+     \textbf{Solution:} The qubit states $\ket{0} \text{ and } \ket{1}$ form an orthonormal basis for the 2-dimensional Hilbert space of a single qubit. This means: $$\braket{0|0}=1, \braket{1|1}=1, \braket{0|1}=0, \braket{1|0}=0.$$ These inner products confirm that $\ket{0} \text{ and } \ket{1}$ are orthogonal and normalized. \\
+     The state $\ket{+}$ is a superposition of $\ket{0} \text{ and } \ket{1}$. The factor $\frac{1}{\sqrt{2}}$ ensures that $\ket{+}$ is normalized meaning: $$\braket{+|+}=1.$$ This confirms that it's a unit vector in the Hilbert space.\\
+     
+     The orthogonal complement $W^\perp$ consists of all vectors in the Hilbert space that are orthogonal to $\ket{+}.$ A vector $\ket{\psi}$ is orthogonal to $\ket{+}$ if: $$\braket{+|\psi}=0.$$ Let $\ket{\psi}=a\ket{0}+\ket{b|1},\text{ where } a, b \in \mathbb{C}.$ We then get $$\ket{+|\psi}=(\frac{1}{\sqrt{2}(\bra{0}+\bra{1})})(\ket{a|0}+\ket{b|1})=\frac{1}{\sqrt{2}}(a+b).$$ For $\ket{\psi}$ to be orthogonal to $\ket{+}$, we require: $$\frac{1}{\sqrt{2}}(a+b)=0 \rightarrow a+b=0 \rightarrow b=-a.$$ Therefore the general form of a vector in $W^\perp$ is: $\ket{\psi}=\ket{a|0}-\ket{a|1}=a(\ket{0}-\ket{1}).$ Normalizing $\ket{\psi}$ we get: $$\ket{\psi]}=\frac{1}{\sqrt{2}}(\ket{0}-\ket{1})=\ket{-} \text{ where} \ket{-} \text{ is the orthogonal state to } \ket{+}.$$ Thus $$W^\perp=span\{\ket{-}\}.$$
+
+    \item Let A be a linear operator on a finite-dimensional Hilbert space $\mathcal{H}$ over $\mathbb{C}$
+    (a) Prove the following identities for any operators A, B on $\mathcal{H}$ and any complex scalar c:
+    \begin{align*}
+    \langle \psi A| &= \langle \psi|A^\dagger,\\
+    (AB)^\dagger &= B^\dagger A^\dagger,\\
+    (A^\dagger)^\dagger &=A\\
+    (cA)^\dagger &= \overline{c}A^\dagger.
+    \end{align*}
+    \textit{Hint:} Use the adjoint defining property: for all $\ket{\phi},\ket{\psi} \in \mathcal{H}$, $$\braket{\phi|A \psi}=\braket{A^\dagger \phi|\psi}.$$
+
+    \textbf{Solution:}\\
+    \textbf{Identity 1 $\bra{\psi A}=\bra{\psi|A^\dagger}$:} We want to show that applying the adjoint operation to the vector $\varphi A$ will gives us $\langle \psi A| = \langle \psi|A^\dagger$. Starting with the inner product $\braket{\psi A|\phi}$ for an arbitrary vector $\phi$, we apply the adjoint operation and get: $$\braket{\psi A|\phi}=\braket{\psi|A^\dagger \phi},$$ Notice that the vector $\phi A$ is being acted on it A from the right, and this corresponds to the adjoint operator acting on $\psi$ from the left. Since this holds for any vector we can write it as $\langle \psi A| = \langle \psi|A^\dagger$.\\
+    
+    \textbf{Identity 2 $(AB)^\dagger = B^\dagger A^\dagger$:} Start with $\braket{\phi|AB\psi}$ and apply the given adjoint property to A: $$\braket{\phi|AB\psi}=\braket{A^\dagger\phi|B\psi}$$
+    We then apply it to B: $$\braket{A^\dagger\phi|B\psi}=\braket{B^\dagger A^\dagger \phi|\psi}= \braket{(AB)^\dagger \phi|\psi}.$$ Since the equation holds for all vectors $\phi$, we can conclude that the operators inside the inner product must be equal: $$(AB)^\dagger=B^\dagger A^\dagger.$$\\
+
+    \textbf{Identity 3 $(A^\dagger)^\dagger =A$:} This identity shows that taking the adjoint twice recovers the original operator. We start with the adjoint property $\braket{\phi|A\psi}=\braket{A^\dagger \phi|\psi}$. If we apply the adjoint property to $A^\dagger$ we get: $$\braket{A^\dagger \phi|\psi} = \braket{(A^\dagger)^\dagger \phi|\psi}.$$ We can conclude $\braket{\phi|A\psi}=\braket{(A^\dagger)^\dagger \phi|\psi}$. Since this holds for all $\phi$ we know: $$(A\dagger)^\dagger=A.$$
+
+    \textbf{Identity 4 $(cA)^\dagger = \overline{c}A^\dagger$}: This identity relates the adjoint of a scalar multiplication. We start with $\braket{\phi|(cA)\psi}$, to which we apply the adjoint property: $$\braket{\phi|(cA)\psi}= \braket{(cA)^\dagger \phi|\psi}$$ We can factor out the scalar c out of the inner product because it's a complex number: $$\braket{\phi|(cA)\psi}=c\braket{\phi|A\psi}.$$ c is a complex scalar so it's important to remember that its complex conjugate will appear when we take the adjoint: $$\braket{(cA)^\dagger \phi|\psi=\overline{c}\braket{A^\dagger \phi|\psi}}.$$ As we said earlier since this holds for all $\phi$ we know: $$(cA)^\dagger=\overline{c}A^\dagger$$
+    
+
+    \item \textbf{Definition:} An operator $V: H \rightarrow H$ (where you may assume dim(H)=n) is an \textit{isometry} if $V^\dagger V=I$. This implies $\|V\ket{\psi\|=\|\ket{\psi}\|}$ for all $\ket{\psi}$.
+    
+    (a) Show explicitly why $V^\dagger V=I$ implies $\|V\ket{\psi}\|^2=\|\ket{\psi}\|^2$\\
+
+    \textbf{Solution:} The norm of a vector $\ket{\psi}$ in a Hilbert space is given by: $\|\ket{\psi}\|^2=\braket{\psi|\psi}.$ Similarly, the norm of $V\ket{\psi}$ is: $$\|\ket{V|\psi}\|^2=\braket{V\psi|V\psi}.$$ Using the adjoint property given in problem 3, we get: $$\braket{V\phi|V\phi}=\braket{\phi|V^\dagger V|\phi}.$$ Since $V^\dagger V = I$ we can substitute and get: $$\braket{\psi|V^\dagger V|\psi}=\braket{\psi|I|\psi}=\braket{\psi|\psi}.$$ Therefore we get: $$\|\ket{V|\psi}\|^2=(\sqrt{\ket{\psi|\psi}})^2=\braket{\psi|\psi}=\|\ket{\psi}\|^2.$$
+    
+    (b) If V also is \textit{onto} (subjective), then V is \textit{unitary}. Briefly explain why surjectivity forces $VV^\dagger=I$ as well.
+
+    \textbf{Solution:} From the problem we know that $\dim(H)=n$ and V is surjective, V maps the entire space H onto itself. In a finite-dimensional vector space, a linear operator that is surjective is also invertable: $$\dim(H)=rank(V)+dim(ker(V)).$$ Since V is invertible, we know that $V^-1 V =I.$ Combining this wit the definition of a unitary operator,we have: $$V^\dagger V = I$$ $$V^{-1}V = I$$ From this, it follows that $V^\dagger = V^{-1}.$ Therefore when you mulitply V by $V^\dagger$ you get: $$VV^\dagger=VV^{-1}=I.$$
+
+    \item Consider a 3-dimensional quantum system spanned by the orthonormal basis{$\ket{0},\ket{1},\ket{2}$}.
+
+    (a) Suppose that we have a matrix\\
+    $$A = \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}$$
+
+    
+    Explain why A is an observable (i.e. is Hermitian). Determine all eigenvalues of A and corresponding eigenvalues by determining an orthonormal basis for each subspace (you may need to recall the Gram-Schmidt process). Write down the projectors associated each eigenspace.
+
+    \textbf{Solution:}\\
+    \textbf{Observable}: Matrix A is Hermitian if $A=A^\dagger,$ where $A^\dagger$ is the conjugate transpose of A. For the given Matrix:  $$A^\dagger = \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}$$ Since $A = A^\dagger$, A is Hermitian and is therefore observable.\\
+    
+    \textbf{Eigenvalues}: To find the eigenvalues, we solve the characteristic equation $det(A-\lambda I)=0:$ $$\det(A - \lambda I) = (1-\lambda)((2-\lambda)(1-\lambda) - 0) - 0 + 1((0) - (1-\lambda)(0))$$
+    The eigenvalues are the roots of $\det(A-\lambda I)=0:$ $$\lambda_1 =0, \lambda_2 = 2.$$
+
+    \textbf{Eigenvectors}: The basis vectors for the eigenspaces are found by: $$(A-\lambda_i I)\vec{v}=\vec{0}$$
+    For $i = 1 \rightarrow \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+    \end{pmatrix} =
+    \begin{pmatrix}
+    v_1 + v_3 \\
+    2v_2 \\
+    v_1 + v_3
+    \end{pmatrix} = \vec{0}$ $$v_1=-v_3,v_2=0 \rightarrow v = \begin{pmatrix} 1\\0\\-1\end{pmatrix}$$
+
+    For $i=2 \rightarrow \begin{pmatrix}
+    -1 & 0 & 1 \\
+    0 & 0 & 0 \\
+    1 & 0 & -1
+    \end{pmatrix}
+    \begin{pmatrix}
+    v_1 \\
+    v_2 \\
+    v_3
+    \end{pmatrix} =
+    \begin{pmatrix}
+    -v_1 + v_3 \\
+    0 \\
+    v_1 - v_3
+    \end{pmatrix} = \vec{0}$ $$v_1=-v_3,v_2 \in \mathbb{C} \rightarrow \vec{c} =\{ \begin{pmatrix} 1\\0\\1\end{pmatrix}, \begin{pmatrix} 0\\1\\0\end{pmatrix}\}$$
+
+    \textbf{Orthonormal Basis:} To determine the orthonormal basis, we will use the Gram-Schmidt process to orthogonalize the eigenvectors and then normalize them.\\
+    For $\lambda_2$ we let $u_1=\begin{pmatrix} 0\\1\\0\end{pmatrix}, u_2=\begin{pmatrix} 1\\0\\1\end{pmatrix}$.\\
+    For $\lambda_1$ we let $u_3 = \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}$\\
+
+    \textbf{Gram-Schmidt Process for $\lambda_2$:} We normalize $u_1$ to compute $v_1$:
+    \[
+    v_1 = \frac{u_1}{\|u_1\|} = \frac{1}{\sqrt{1}} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}.
+    \]
+    
+    Next, calculate the projection of $u_2$ onto $v_1$:
+    \[
+    \text{proj}_{v_1} u_2 = \frac{u_2 \cdot v_1}{v_1 \cdot v_1} v_1 = \frac{\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} \cdot \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}}{1} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}.
+    \]
+    
+    Thus:
+    \[
+    w_2 = u_2 - \text{proj}_{v_1} u_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}.
+    \]
+    
+    Normalize $w_2$ to compute $v_2$:
+    \[
+    v_2 = \frac{w_2}{\|w_2\|} = \frac{1}{\sqrt{1^2 + 0^2 + 0^2}} \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}.
+    \]
+    
+   \textbf{Gram-Schmidt Process for $\lambda_1$:} We normalize $u_3$ to compute $v_3$:
+    \[
+    v_3 = \frac{u_3}{\|u_3\|} = \frac{1}{\sqrt{(-1)^2}} \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}.
+    \]
+    
+    \textbf{Projectors for Eigenspaces}
+    The projector for an eigenspace is given by:
+    \[
+    P = \sum_k v_k v_k^\top,
+    \]
+    where $v_k$ is a vector in the orthonormal basis of the eigenspace.
+    
+    \subsubsection*{Projector for the Eigenspace of $\lambda_2$}
+    
+    The orthonormal basis for the eigenspace of $\lambda_2$ is $\{v_1, v_2\}$. Thus:
+    \[
+    P_1 = v_1 v_1^\top + v_2 v_2^\top,
+    \]
+    where:
+    \[
+    v_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \quad v_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}.
+    \]
+    
+    Compute:
+    \[
+    v_1 v_1^\top = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} \begin{pmatrix} 1 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix},
+    \]
+    and:
+    \[
+    v_2 v_2^\top = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} \begin{pmatrix} 0 & 1 & 0 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0 \end{pmatrix}.
+    \]
+    
+    Thus:
+    \[
+    P_1 = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 0 \end{pmatrix}.
+    \]
+    
+    \textbf{Projector for the Eigenspace of $\lambda_1$}
+    
+    The orthonormal basis for the eigenspace of $\lambda_1$ is $\{v_3\}$. Thus:
+    \[
+    P_2 = v_3 v_3^\top,
+    \]
+    where:
+    \[
+    v_3 = \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}.
+    \]
+    
+    Compute:
+    \[
+    v_3 v_3^\top = \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix} \begin{pmatrix} 0 & 0 & -1 \end{pmatrix} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+    \]
+    
+    Thus:
+    \[
+    P_2 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+    \]
+    
+    (b) Suppose your quantum system is initially described by a mixed state $$p = 0.4\ket{0}\bra{0}+0.3\ket{1}\bra{1}+0.3\ket{2}\bra{2}.$$ Determine the probability of measuring each eigenvalue of A, as well as the collapsed state post-measurement.\\
+
+    \textbf{Solution:}
+    \textbf{Defining the Mixed State $\rho$}  
+    The given mixed state is represented as:
+    \[
+    \rho = 0.4|0\rangle\langle 0| + 0.3|1\rangle\langle 1| + 0.3|2\rangle\langle 2|,
+    \]
+    which can be expressed in matrix form as:
+    \[
+    \rho = 
+    \begin{pmatrix}
+    0.4 & 0 & 0 \\
+    0 & 0.3 & 0 \\
+    0 & 0 & 0.3
+    \end{pmatrix}.
+    \]
+    
+    \textbf{Probability of Measurement Outcomes}  
+    
+    Given the observable $A$, with eigenvalues $\lambda_1 = 0$ and $\lambda_2 = 2$, the probability of measuring these eigenvalues is calculated using:
+    \[
+    \text{Prob}(A = \lambda_i) = \text{Tr}(P_i \rho),
+    \]
+    where $P_i$ is the projector associated with eigenvalue $\lambda_i$.
+    
+    \textbf{Calculation for $\lambda_1 = 0$}  
+    The projector for $\lambda_1$ is:
+    \[
+    P_1 = \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & -1 \\
+    0 & 0 & 0 \\
+    -1 & 0 & 1
+    \end{pmatrix}.
+    \]
+    
+    The probability is:
+    \[
+    \text{Prob}(A = \lambda_1) = \text{Tr}(P_1 \rho) = 
+    \text{Tr}\left(
+    \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & -1 \\
+    0 & 0 & 0 \\
+    -1 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    0.4 & 0 & 0 \\
+    0 & 0.3 & 0 \\
+    0 & 0 & 0.3
+    \end{pmatrix}
+    \right).
+    \]
+    
+    Performing the multiplication:
+    \[
+    P_1 \rho = 
+    \frac{1}{2}
+    \begin{pmatrix}
+    0.4 & 0 & -0.3 \\
+    0 & 0 & 0 \\
+    -0.3 & 0 & 0.3
+    \end{pmatrix}.
+    \]
+    
+    Taking the trace:
+    \[
+    \text{Prob}(A = \lambda_1) = \text{Tr}(P_1 \rho) = \frac{1}{2}(0.4 + 0.3 - 0.15) = 0.35.
+    \]
+    
+    \textbf{Calculation for $\lambda_2 = 2$}  
+    The projector for $\lambda_2$ is:
+    \[
+    P_2 = \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}.
+    \]
+    
+    The probability is:
+    \[
+    \text{Prob}(A = \lambda_2) = \text{Tr}(P_2 \rho) = 
+    \text{Tr}\left(
+    \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+    0.4 & 0 & 0 \\
+    0 & 0.3 & 0 \\
+    0 & 0 & 0.3
+    \end{pmatrix}
+    \right).
+    \]
+    
+    Performing the multiplication:
+    \[
+    P_2 \rho = 
+    \frac{1}{2}
+    \begin{pmatrix}
+    0.4 & 0 & 0.3 \\
+    0 & 0.6 & 0 \\
+    0.3 & 0 & 0.3
+    \end{pmatrix}.
+    \]
+    
+    Taking the trace:
+    \[
+    \text{Prob}(A = \lambda_2) = \text{Tr}(P_2 \rho) = \frac{1}{2}(0.4 + 0.6 + 0.3) = 0.65.
+    \]
+    
+    \textbf{Collapsed States Post-Measurement}  
+    The collapsed state after measuring $\lambda_i$ is given by:
+    \[
+    \rho_{\lambda_i} = \frac{P_i \rho P_i}{\text{Tr}(P_i \rho)}.
+    \]
+    
+    \textbf{For $\lambda_1 = 0$}  
+    \[
+    P_1 \rho P_1 = \frac{1}{2}
+    \begin{pmatrix}
+    0.4 & 0 & -0.3 \\
+    0 & 0 & 0 \\
+    -0.3 & 0 & 0.3
+    \end{pmatrix}
+    \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & -1 \\
+    0 & 0 & 0 \\
+    -1 & 0 & 1
+    \end{pmatrix}.
+    \]
+    
+    Simplifying and normalizing:
+    \[
+    \rho_{\lambda_1} = 
+    \begin{pmatrix}
+    0.5 & 0 & -0.5 \\
+    0 & 0 & 0 \\
+    -0.5 & 0 & 0.5
+    \end{pmatrix}.
+    \]
+    
+    \textbf{For $\lambda_2 = 2$}  
+    \[
+    P_2 \rho P_2 = \frac{1}{2}
+    \begin{pmatrix}
+    0.4 & 0 & 0.3 \\
+    0 & 0.6 & 0 \\
+    0.3 & 0 & 0.3
+    \end{pmatrix}
+    \frac{1}{2}
+    \begin{pmatrix}
+    1 & 0 & 1 \\
+    0 & 2 & 0 \\
+    1 & 0 & 1
+    \end{pmatrix}.
+    \]
+    
+    Simplifying and normalizing:
+    \[
+    \rho_{\lambda_2} = 
+    \begin{pmatrix}
+    0.269 & 0 & 0.269 \\
+    0 & 0.462 & 0 \\
+    0.269 & 0 & 0.269
+    \end{pmatrix}.
+    \]
+
+    (c) Soft Question: how do you interpret the result from the previous part? In the examples from the lecture, every mixed state collapsed to a pure state upon measuring with respect to some observable. Can you suggest a reason why?
+
+    In part (b), the mixed state didn't collapse into a pure state after measuring observable A; instead, it collapsed into a new mixed state corresponding to each eigenvalue of A. This contrasts with lecture examples, where quantum measurements always lead to pure states.\\ 
+    
+    When measuring a quantum system with an observable like A, the system projects onto one of its eigenstates. The eigenstates of A are linear combinations of the basis states $\ket{0}, \ket{1}, \ket{2}$, not the same as those in the initial state’s density matrix. Upon measurement, the system collapses to a pure state aligned with the eigenstate corresponding to the measured eigenvalue, as seen in the collapsed states.\\
+    
+    The difference in outcomes comes from the initial state’s nature. In the lecture examples, the states were superpositions, so measurement collapsed the system to either $\ket{0}$ or $\ket{1}$ However, here the initial state is a statistical ensemble (mixed state), not a superposition. Despite this, quantum measurement still projects the state onto an eigenstate, with the final state (pure or mixed) depending on the observable’s eigenstates and the initial state’s basis.
+
+    \item (a) Differentiate between the \textit{direct sum} $\mathcal{H}_1 \oplus \mathcal{H}_2$ and the \textit{tensor product} $\mathcal{H}_1\otimes \mathcal{H}_2.$ \\
+    
+    \textbf{Solution:} 
+    Direct Sum $\mathcal{H}_1 \oplus \mathcal{H}_2$: The direct sum is a way to combine two spaces into a larger space while keeping their elements independent. Operations such as addition and scalar multiplication are defined component wise where each element in the direct sum can be represented as a pair $(v_1, v_2) \text{ where } v_1 \in \mathcal{H}_1, \text{ and } v_2 \in \mathcal{H}_2$. If $\dim \mathcal{H}_1 =m \text{ and } \dim \mathcal{H}_2=n$ then $\dim(\mathcal{H}_1 \oplus \mathcal{H}_2) = m + n.$ In problem 2a, we showed that any vector in $\mathcal{H}$ can be split into two smaller spaces. Direct sums are useful when working with systems that can be analyzed separately but are considered together for convenience or when decomposing a vector space into a direct sum of subspaces for simpler analysis. An example of direct sum is $$\ket{1} \oplus \ket{0} = (0,1,1,0).$$\\
+
+    Tensor Product $\mathcal{H}_1\otimes \mathcal{H}_2$: Unlike the direct sum, the tensor product combines spaces in a way that lets the creation of interactions between elements. The tensor product describes entanglement or interactions between the two spaces. It is often used to describe systems that are in a state from $\mathcal{H}_1 \text{ and } \mathcal{H}_2$ simultaneously. An example of tensor product is $$\ket{1} \otimes \ket{0} = \begin{pmatrix}
+    0 \cdot 1 \\
+    0 \cdot 0 \\
+    1 \cdot 1 \\
+    1 \cdot 0
+    \end{pmatrix} = \begin{pmatrix}
+    0 \\
+    0 \\
+    1 \\
+    0
+    \end{pmatrix}$$
+    
+
+    (b) Give a physical example in quantum computing where you use $\otimes$ but not $\oplus$. What does each represent physically.
+    
+    \textbf{Solution:} A physical example in quantum computing is the SWAP gate which acts on two qubits by swapping their states.  For examples If the first qubit is in state $\ket{1}$ and the second qubit is in state $\ket{0}$, the combine state is $$\ket{1} \otimes \ket{0} = \ket{10}.$$ Applying the SWAP gate we get: $$SWAP(\ket{10})=\ket{01}.$$ For this gate, the $\otimes$ must be used because it describes the \textbf{combined state} of the two qubits as a composite system and it allows us to represent the action of the SWAP gate which acts on both qubits simultaneously. We cannot use the direct sum $\oplus$ because the direct sum describes a system that is in one of the two distinct states (either $\mathcal{H}_1 \text{ or } \mathcal{H}_2).$
+    
+\end{enumerate}
+
+
+\end{document}
