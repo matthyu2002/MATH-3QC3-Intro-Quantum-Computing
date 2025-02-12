@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{graphicx, amsmath, listings}
+\usepackage{amssymb, amsthm,enumerate,braket, verbatim}
+\usepackage[most]{tcolorbox}
+\usepackage[a4paper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\H}{\mathbb{H}}
+
+\newtcolorbox[auto counter]{question}[1][]{colback=white, colframe=black,
+fonttitle=\bfseries\sffamily, colbacktitle=white,
+enhanced,coltitle=black,top=4mm,
+attach boxed title to top center={xshift=-4cm,yshift=-3mm},
+title=QUESTION \thetcbcounter,#1}
+
+\begin{document}
+\title{MATH 3QC3 Assignment 2}
+\author{Matthew Yu | 400322243 | Yum77}
+\date{\today}
+\maketitle
+
+\begin{question}
+    \textbf{Pure State on the Bloch Sphere.}\\
+    Consider the single-qubit pure state $$\ket{\psi}=\cos \left( \frac{0}{2} \right) \ket{0} + e^{i\phi}\sin \left(\frac{0}{2} \right) \ket{1},    0 \leq \theta \leq \pi , 0 \leq \phi \leq 2\pi.$$
+    \begin{enumerate}
+        \item[a)] Write down the corresponding density operator $\rho=\ket{\psi}\bra{\psi}.$
+        \item[b)] Show that $\rho$ can be expressed in the form $$\rho=\frac{1}{2}\left[I + \vec{n} \cdot \vec{\sigma} \right],$$ where $\vec{\sigma}=(\sigma_x,\sigma_y,\sigma_z)$ is the vector of Pauli matrices, and $\vec{n}=(n_x,n_y,n_z)$ is a real 3D unit vector (i.e. $\|\vec{n}\|=1$). Derive the coordinates $n_x,n_y,n_z$ in terms of the angles $\theta, \phi$.
+        \item[c)] Interpret $\vec{n}$ as a point on the Bloch sphere (of radius 1). Briefly explain the geometric meaning of $\theta,\phi$ in spherical conditions 
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    \textbf{General Single-Qubit Density Operator.}\\
+    A general $2 \times 2$ density matrix (mixed state) can be written as
+    $$ \rho =\begin{pmatrix}
+        \rho_{00} & \rho_{01} \\
+        \rho_{10} & \rho_{11}
+    \end{pmatrix} \quad \text{ with } \rho^\dagger=\rho, \ tr(\rho)=1, \, p \geq 0.$$
+    \begin{enumerate}
+        \item[a)] Show that any valid single-qubit, $\rho$ admits the \textit{Bloch parametrization:} $$\rho=\frac{1}{2}\left[I+\vec{r} \cdot\vec{\sigma}\right], \quad \|\vec{r}\| \leq 1.$$ Indicate how the vector $\vec{r}$ relates tot he off-diagonal and diagonal elements of $\rho$.
+        \item[b)] Suppose  
+        $$ \rho =\begin{pmatrix}
+        \frac{1}{2} & \frac{1}{2} \\
+        \frac{1}{2} & \frac{1}{2}
+        \end{pmatrix}.$$ Verify that $\rho$ is a valid density matrix (positive semi-definite, trace 1). Then find the Bloch vector $\vec{r}=(r_x,r_y,r_z)$ such that $\rho=\frac{1}{2}(I+r_x\sigma_x+r_y\sigma_y+r_z\sigma_z).$ nCheck that $\|\vec{r}\| \leq1.$ Does $\rho$ correspond to a pure state or a mixed state? How do you know?
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    Let $\rho_i$ be a density operator on $\H_i$ for $i=1,2.$ Let $\rho_1 \otimes \rho_2$ be the tensor product, which you may assume is represented by the Kronecker product relative to some choice of ONBs. Show that $\rho_1 \otimes \rho_2$ is a density operator on $\H_1 \otimes \H_2$.
+\end{question}
+
+\begin{question}
+    \begin{enumerate}
+        \item[a)] Let $A_i$ be an observable on $\H_i$ for $i=1,2$ . Show that $A_1 \otimes A_2$ is an observable on $\H_1 \otimes \H_2.$
+        \item[b)] (Measuring Entangled States of Composite Systems) Let $\H_A$ and $\H_B$ represent two quantum systems. Let $O$ be an observable on $\H_A$ and let $1_B$ be the identity operator on $\H_B$. Then $O \otimes 1_B$ is an observable on $\H_A \otimes \H_B$ by an earlier question. Define $$\ket{\psi}=\frac{1}{\sqrt{3}}(\ket{00}+\ket{01}+\ket{10})$$ and define $$O=\sigma_z=\begin{pmatrix}
+            1 & 0\\
+            0 & -1
+        \end{pmatrix}.$$ Compute the eigenvalues/eigenstates of $\sigma_z \otimes 1_B$ and the probabilities associated to each observation. Find the collapsed state upon each of the possible observations.
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    \begin{enumerate}
+        \item[a)] Let $U_i$ be a unitary operator on $\H_i$ for $i=1,2.$ Show that $U_1 \otimes U_2$ is a unitary operator on $H_1 \otimes H_2$.
+        \item[b)] Give an example of a unitary operator on ${}^\P\H \otimes {}^\P\H $ that is \textit{entangled}, i.e. not of the form $U_1 \otimes U_2.$ 
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    Consider the two-qubit Hilbert space $\H_A \otimes \H_B$, each of the dimension 2, with the standard computational basis $\{\ket{00},\ket{01},\ket{10},\ket{11} \}.$ Define $$\ket{\psi}=\frac{1}{\sqrt{3}}(\ket{00}+\ket{01}+\ket{10}).$$ Let $$\rho_{AB}=\ket{\psi}\bra{\psi}$$ be the corresponding $4 \times 4$ density operator.
+    \begin{enumerate}
+        \item[a)]\textbf{Show it is Entangled.} Verify that $\ket{\psi}$ cannot be written as a product state $(\alpha\ket{0}+\beta\ket{1})\otimes(\gamma\ket{0}+\delta\ket{1})$ with fixed complex scalars $\alpha,\beta,\gamma,\delta$ satisfying $|\alpha|^2+|\beta|^2=1.$ Conclude that $\ket{\psi}$ is entangled.\\
+        \textit{Hint:} Attempt to match coefficients of basis states and show there's no consistent solution unless one of them is zero--which doesn't match $\ket{\psi}$.
+        \item[b)]\textbf{Compute the Partial Trace Over B.} Write $\rho_{AB}$ explicitly in the basis $\{\ket{00}, \ket{01}, \ket{10}, \ket{11} \},$ then compute $$\rho_A=tr_B(\rho_{AB}).$$ You may group the $4 \times 4$ matrix $\rho_{AB}$ into $2 \times 2$ blocks corresponding to subsystem B.
+        \item[c)] \textbf{Is the Reduced State Pure or Mixed?} Check whether $\rho_A$ is a rank-1 projector (i.e. pure). If not, it must be a mixed state. Comment on how $\rho_A$ being mixed reflects the entanglement of the global state $\ket{\psi}.$
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    We have four qubits A, B, C, D, with two disjoint pairs (A, B) and (C, D) initially prepared in the Bell state $$\ket{\Phi^+}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11}).$$ Hence the entire 4-qubit system is $$\ket{\Psi}_{ABCD}=(\ket{\Phi^+}_{AB})\otimes(\ket{\Phi^+}_{CD}).$$ We will \textit{measure only qubits} B, C, with a Hermitian observable $M_{BC}$. Recall that in the full space, this is represented by $$\underbrace{\mathbb{I}_A}_{2\times 2} \otimes \underbrace{M_{BC}}_{4\times 4} \otimes \underbrace{\mathbb{I}_D}_{2\times 2},$$ a $16\times 16$ operator which acts trivially on qubits A and D.
+    \begin{enumerate}
+        \item[a)]\textbf{Defining $M_{BC}$ as a Bell-measurement operator.}\\
+        let the four Bell states for qubits (B,C) be $$\ket{\Phi^\pm}=\frac{1}{\sqrt{2}}(\ket{00}\pm\ket{11}), \quad \ket{\Psi}=\frac{1}{\sqrt{2}}(\ket{01}\pm\ket{10}).$$ Define the Hermitian operator on B, C: $$M_{BC}=0\Phi^+\Phi^++1\Phi^-\Phi^-+2\Psi^+\Psi^++3\Psi^-\Psi^-.$$ Explain why each $\ket{\Phi^\pm},\ket{\Psi^\pm}$ is an eigenvector of $M_{BC}$, and why this operator has distinct eigenvalues 0,1,2,3.
+        \item[b)]\textbf{Measuring $\mathbb{I}_A \otimes M_{BC} \otimes \mathbb{I}_D$ on the state $\ket{\Psi}_{ABCD}$}.
+        \begin{enumerate}
+            \item[i)] Expand $\ket{\Psi}_{ABCD}$ in the Bell basis of (B, C). Show each Bell outcome $\{\Phi^+,\Phi^-,\Psi^+\Psi^-\}$ occurs with the probability 1/4 when measuring the observable $\mathbb{I}_A \otimes M_{BC} \otimes \mathbb{I}_D$.
+            \item[ii)] Determine the post-measurement staet of (A,D) for each outcome. Conclude that (A,D) end up in one of the four Bell states (thus entangled) even though A was initially entangled only with B, and C was entangled only with D.
+        \end{enumerate}
+        \item[c)]\textbf{Discussion.}\\
+        Briedly discuss how $\mathbb{I_A}\otimes M_{BC} \otimes \mathbb{I_D}$ is formally a $16\times16$ operator acting on A, B, C, D. However, because it factorizes as the identity on A and D, it "probes" only the degrees of freedom in B, C. In this way, we effectively \textit{measure qubits} B, C (and not A or D). This measurement "swaps" entanglement so that (A, D) end up entangled.
+    \end{enumerate}
+\end{question}
+
+\end{document}
