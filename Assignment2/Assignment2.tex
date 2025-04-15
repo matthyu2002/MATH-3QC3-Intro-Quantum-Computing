@@ -23,13 +23,56 @@ title=QUESTION \thetcbcounter,#1}
 
 \begin{question}
     \textbf{Pure State on the Bloch Sphere.}\\
-    Consider the single-qubit pure state $$\ket{\psi}=\cos \left( \frac{0}{2} \right) \ket{0} + e^{i\phi}\sin \left(\frac{0}{2} \right) \ket{1},    0 \leq \theta \leq \pi , 0 \leq \phi \leq 2\pi.$$
+    Consider the single-qubit pure state $$\ket{\psi}=\cos \left( \frac{\theta}{2} \right) \ket{\theta} + e^{i\phi}\sin \left(\frac{\theta}{2} \right) \ket{1},    0 \leq \theta \leq \pi , 0 \leq \phi \leq 2\pi.$$
     \begin{enumerate}
         \item[a)] Write down the corresponding density operator $\rho=\ket{\psi}\bra{\psi}.$
         \item[b)] Show that $\rho$ can be expressed in the form $$\rho=\frac{1}{2}\left[I + \vec{n} \cdot \vec{\sigma} \right],$$ where $\vec{\sigma}=(\sigma_x,\sigma_y,\sigma_z)$ is the vector of Pauli matrices, and $\vec{n}=(n_x,n_y,n_z)$ is a real 3D unit vector (i.e. $\|\vec{n}\|=1$). Derive the coordinates $n_x,n_y,n_z$ in terms of the angles $\theta, \phi$.
         \item[c)] Interpret $\vec{n}$ as a point on the Bloch sphere (of radius 1). Briefly explain the geometric meaning of $\theta,\phi$ in spherical conditions 
     \end{enumerate}
 \end{question}
+
+\textbf{Solution 1:}
+\begin{enumerate}
+    \item[a)] To get $\rho=\ket{\psi}\bra{\psi}$ we get the conjugate transpose (adjoint) of $\ket{\psi}$ which is: $$\bra{\psi}=\cos\left(\frac{\theta}{2}\right)\bra{0}+e^{-i\phi}\sin\left(\frac{\theta}{2}\right)\bra{1}$$ 
+    Then we compute the butterfly operator:
+    $$\rho=\ket{\psi}\bra{\psi}= \left(\cos \left( \frac{\theta}{2} \right) \ket{0} + e^{i\phi}\sin \left(\frac{\theta}{2} \right) \ket{1}\right)\left(\cos\left(\frac{\theta}{2}\right)\bra{0}+e^{-i\phi}\sin\left(\frac{\theta}{2}\right)\bra{1}\right)$$
+    $$\boxed{\rho = \cos^2\left(\frac{\theta}{2}\right) \ket{0}\bra{0} + \cos\left(\frac{\theta}{2}\right) e^{-i\phi} \sin\left(\frac{\theta}{2}\right) \ket{0}\bra{1} + \cos\left(\frac{\theta}{2}\right) e^{i\phi} \sin\left(\frac{\theta}{2}\right) \ket{1}\bra{0} + \sin^2\left(\frac{\theta}{2}\right) \ket{1}\bra{1}.}$$
+    \item[b)] We know from part (a), the density matrix for the pure state $\ket{\psi}=\cos \left( \frac{\theta}{2} \right) \ket{\theta} + e^{i\phi}\sin \left(\frac{\theta}{2} \right) \ket{1}$ is: $\rho = \cos^2\left(\frac{\theta}{2}\right) \ket{0}\bra{0} + \cos\left(\frac{\theta}{2}\right) e^{-i\phi} \sin\left(\frac{\theta}{2}\right) \ket{0}\bra{1} + \cos\left(\frac{\theta}{2}\right) e^{i\phi} \sin\left(\frac{\theta}{2}\right) \ket{1}\bra{0} + \sin^2\left(\frac{\theta}{2}\right) \ket{1}\bra{1}.$ Where: $$\ket{0}\bra{1}=\begin{pmatrix}1&0\\0&1\end{pmatrix}, \ket{0}\bra{1}=\begin{pmatrix}0&1\\0&0\end{pmatrix},\ket{1}\bra{0}=\begin{pmatrix}0&0\\1&0\end{pmatrix},\ket{1}\bra{1}=\begin{pmatrix} 0&0\\0&1\end{pmatrix}.$$ So our density matrix $\rho$ becomes: $$\rho=\begin{pmatrix}\cos^2\left(\frac{\theta}{2}\right)&\cos\left(\frac{\theta}{2}\right)\sin\left(\frac{\theta}{2}\right)e^{-i\phi}\\ \cos\left(\frac{\theta}{2}\right)\sin\left(\frac{\theta}{2}\right)e^{-e\phi}&\sin^2\left(\frac{\theta}{2}\right)\end{pmatrix}.$$
+    Using the trig identity $\sin\theta=2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)$ to simplify we get: $$\rho=\begin{pmatrix}
+        \cos^2\left(\frac{\theta}{2}\right) & \frac{\sin\theta}{2}e^{-i\phi}\\
+        \frac{\sin\theta}{2}e^{-i\phi} & \sin^2 \left(\frac{\theta}{2}\right)
+    \end{pmatrix}.$$
+    From lecture we know the Pauli matrices: $$\sigma_x=\begin{pmatrix}
+        1&0\\0&1\end{pmatrix}\quad\sigma_y=\begin{pmatrix}0&-i\\i&0\end{pmatrix}\quad \sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$$
+    Calculating $\rho=\frac{1}{2}[I+\vec{n}\cdot\vec{\sigma}]$:
+    $$\rho=\frac{1}{2}[I+\vec{n}\cdot\vec{\sigma}]=\frac{1}{2}\left[I+n_x\begin{pmatrix}
+        1&0\\0&1\end{pmatrix}+n_y\begin{pmatrix}0&-i\\i&0\end{pmatrix}+n_z\begin{pmatrix}1&0\\0&-1\end{pmatrix}\right]$$
+    $$\rho=\frac{1}{2}[I+\vec{n}\cdot\vec{\sigma}]=\frac{1}{2}\left[I+\begin{pmatrix}
+        n_z & n_x-in_y\\
+        n_x+in_y & -n_z
+    \end{pmatrix}\right]$$
+    $$\rho=\frac{1}{2}[I+\vec{n}\cdot\vec{\sigma}]=\begin{pmatrix}
+        \frac{1+n_z}{2} & \frac{n_x-in_y}{2}\\
+        \frac{n_x+in_y}{2} & \frac{1-n_z}{2}
+    \end{pmatrix}$$
+    Equating this $\begin{pmatrix}
+        \cos^2\left(\frac{\theta}{2}\right) & \frac{\sin\theta}{2}e^{-i\phi}\\
+        \frac{\sin\theta}{2}e^{-i\phi} & \sin^2 \left(\frac{\theta}{2}\right)
+    \end{pmatrix}$ found earlier to $\begin{pmatrix}
+        \frac{1+n_z}{2} & \frac{n_x-in_y}{2}\\
+        \frac{n_x+in_y}{2} & \frac{1-n_z}{2}
+    \end{pmatrix}$ part by part we get: $$\cos^2\left(\frac{\theta}{2}\right)=\frac{I+n_z}{2} \rightarrow \boxed{n_z=2\cos^2\left(\frac{\theta}{2}\right)-1=\cos\theta}$$
+    $$\frac{\sin\theta}{2}e^{-1\phi}=\frac{n_x-in_y}{2} \rightarrow n_x-in_y=\sin\theta(\cos\phi-i\sin\phi) \text{ using Eulers formula} (e^{i\phi}=\cos\phi+i\sin\phi)$$
+    Matching the real and imaginary parts we get:
+    $$\boxed{n_x=\sin\theta\cos\phi, \quad n_y=\sin\theta\sin\phi}.$$
+    Lastly we verify that $\vec{n}$ is a unit vector:
+    $$n_x^2+n_y^2+n_z^2=\sin^2\cos(\cos^2\phi+\sin^2\phi)+cos^2\theta=1$$
+    \item[c)] The vector $\vec{n}=(n_x,n_y,n_z)$ represents a point on the Bloch sphere which is a geometric representation of a qubit's state. The Bloch sphere a unit sphere (radius =1) centered at the origin, and every possible pure qubbit state corresponds to a point on its surface. Since $\vec{n}$ is a unit vector, it satisfies the condition $||\vec{n}||=1$ meaning it lies on the sphere.\\
+    
+    In spherical coordinates, the position of $\vec{n}$ is determined by two angles: the polar angle $\theta$ and the azimuthal angle $\phi$. $\theta$ is measured from the positive z-axis and determines how far the vector is tilted from the north pole. It ranges from 0 to $\pi$ where 0 corresponds to the north pole $\ket{0}$ and $\pi$ corresponds to the south pole $\ket{1}$. $\phi$ is measured in the $x-y$ plane from the positive $x$-axis ranging from $0$ to $2\pi$. This angle determines the position of $\vec{n}$ around the spheres equator.\\
+    
+    This geometric representation provides an intuitive way to visualize qubit sates. The north and south poles correspond to the computational basis states $\ket{0}$ and $\ket{1}$, while other points represent superpositions of these states. The angle $\theta$ controls the probability amplitudes of $\ket{0}$ and $\ket{1}$, while $\phi$ determines the relatives phase between them.
+\end{enumerate}
 
 \begin{question}
     \textbf{General Single-Qubit Density Operator.}\\
@@ -44,13 +87,59 @@ title=QUESTION \thetcbcounter,#1}
         $$ \rho =\begin{pmatrix}
         \frac{1}{2} & \frac{1}{2} \\
         \frac{1}{2} & \frac{1}{2}
-        \end{pmatrix}.$$ Verify that $\rho$ is a valid density matrix (positive semi-definite, trace 1). Then find the Bloch vector $\vec{r}=(r_x,r_y,r_z)$ such that $\rho=\frac{1}{2}(I+r_x\sigma_x+r_y\sigma_y+r_z\sigma_z).$ nCheck that $\|\vec{r}\| \leq1.$ Does $\rho$ correspond to a pure state or a mixed state? How do you know?
+        \end{pmatrix}.$$ Verify that $\rho$ is a valid density matrix (positive semi-definite, trace 1). Then find the Bloch vector $\vec{r}=(r_x,r_y,r_z)$ such that $\rho=\frac{1}{2}(I+r_x\sigma_x+r_y\sigma_y+r_z\sigma_z).$ Check that $\|\vec{r}\| \leq1.$ Does $\rho$ correspond to a pure state or a mixed state? How do you know?
     \end{enumerate}
 \end{question}
+
+\textbf{Solution 2:}
+\begin{enumerate}
+    \item[a)] To show that any valid single-qubit density matrix $\rho$ admits the Bloch parametrization, we need to express $\rho$ in terms of the Pauli matrices. The general density matrix $\rho$ can be expressed as:$\rho = \frac{1}{2} \left[ I + \vec{r} \cdot \vec{\sigma} \right] = \frac{1}{2} \left[ I + r_x \sigma_x + r_y \sigma_y + r_z \sigma_z \right]$\\
+    The Pauli matrices are: $\sigma_x = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}, \quad \sigma_y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}, \quad \sigma_z = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$\\
+    So we get: $$\rho=\frac{1}{2}\left[\begin{pmatrix} 1 & 0 \\ 0  & 1
+    \end{pmatrix} + \begin{pmatrix}
+    0  & r_x \\ r_x & 0
+    \end{pmatrix} + \begin{pmatrix}
+    0 & -ir_y \\ ir_y & 0
+    \end{pmatrix} + \begin{pmatrix}
+    r_z & 0 \\0 & -r_z
+    \end{pmatrix}\right]$$
+    $$\rho = \frac{1}{2} \begin{pmatrix} 1 + r_z & r_x - i r_y \\ r_x + i r_y & 1 - r_z \end{pmatrix}$$
+    For $\rho$ to be a valid density matrix, it must satisfy:
+    \begin{enumerate}
+        \item Hermitian: $\rho^\dagger=\rho$
+        \item Trace 1: $tr(\rho)=1$
+        \item Positive semi-definite
+    \end{enumerate}
+    (a) is satisfied because each $\sigma_i$ is Hermitian.
+    (b) is satisfied because $\text{tr}(\rho) = \frac{1}{2} \left[ (1 + r_z) + (1 - r_z) \right] = 1$
+    (c) implies that the eigenvalues of $\rho$ must be non-negative. The eigenvalues $\lambda$ of a $2\times2$ matrix $\rho$ are given by: $$\lambda=\frac{1\pm||\vec{r||}}{2}$$ To ensure non-negativity, $||\vec{r}|| \leq 1.$\\
+    The Bloch vector $\vec{r}$ relates to the elements of $\rho$:
+    $$r_x=\rho_{10}+\rho_{01}$$
+    $$r_y=i(\rho_{10}-\rho_{01})$$
+    $$r_z=\rho_{00}-\rho_{11}$$
+    \item[b)] To verify the properties of the give $\rho$ matrix: $$\rho = \begin{pmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & \frac{1}{2} \end{pmatrix}$$
+    Is $\rho$ Hermitian? $$\rho^\dagger = \begin{pmatrix} \frac{1}{2} & \frac{1}{2} \\ \frac{1}{2} & \frac{1}{2} \end{pmatrix} = \rho$$ Yes it is Hermitian.\\ Is $tr(\rho)=1$? $$\text{tr}(\rho) = \frac{1}{2} + \frac{1}{2} = 1$$ Yes the trace equals 1.\\ Is the matrix positive semi-definite?\\ We calculate the eigenvalues using $\text{det}(\rho-\lambda) I=0$ where we get $$\lambda_1 = 1, \quad \lambda_2 = 0$$ Since both are non-negative, we know $\rho$ is positive semi-definite.\\
+    Now we find the Bloch vector $\vec{r} = (r_x, r_y, r_z)$: $$r_x = \rho_{10} + \rho_{01} = 1, \quad r_y = i (\rho_{10} - \rho_{01}) = 0, \quad r_z = \rho_{00} - \rho_{11} = 0$$
+    $$\vec{r} = (1, 0, 0).$$
+    Finally we check \(\|\vec{r}\| \leq 1\): $$\|\vec{r}\| = \sqrt{1^2 + 0^2 + 0^2} = 1$$
+    To check if $\rho$ correspond to a pure state or mixed state, we can find $tr(\rho^2)=1$: $$tr(\rho^2)=\frac{1}{2}+\frac{1}{2}=1$$ Therefore we know this is a pure state. We can also tell as $\vec{r}=(1, 0, 0)$ and we know it exists as a pure state on the Bloch sphere.
+\end{enumerate}
 
 \begin{question}
     Let $\rho_i$ be a density operator on $\H_i$ for $i=1,2.$ Let $\rho_1 \otimes \rho_2$ be the tensor product, which you may assume is represented by the Kronecker product relative to some choice of ONBs. Show that $\rho_1 \otimes \rho_2$ is a density operator on $\H_1 \otimes \H_2$.
 \end{question}
+
+\textbf{Solution 3:} To show that $\rho_1 \otimes \rho_2$ is a density operator on $\H_1 \otimes \H_2$, we need to once again verify that the tensor product is:
+\begin{enumerate}
+    \item Hermitian: \((\rho_1 \otimes \rho_2)^\dagger = \rho_1 \otimes \rho_2\)
+    \item Trace = 1: \(\text{tr}(\rho_1 \otimes \rho_2) = 1\)
+    \item Positive Semi-Definite: All eigenvalues are non-negative.
+\end{enumerate}
+1. Since we know $\rho_i$ is a density operator, both $\rho_1$ and $\rho_2$ are Hermitian meaning: $$\rho_1^\dagger=\rho_1, \quad \rho_2^\dagger=\rho_2.$$ The property of the kronecker product states that: $$(\rho_1 \otimes \rho_2)^\dagger = \rho_1^\dagger \otimes \rho_2^\dagger = \rho_1 \otimes \rho_2$$ Therefore, \(\rho_1 \otimes \rho_2\) is Hermitian.
+2. The trace of the Kronecker product can be shown as: $$\text{tr}(\rho_1 \otimes \rho_2) = \text{tr}(\rho_1) \cdot \text{tr}(\rho_2)$$ Given that $tr(\rho_1)=1$ and $tr(\rho_2)=1$ we have: $$tr(\rho_1 \otimes \rho_2) = 1 \cdot 1 = 1$$
+3. A matrix is positive semi-definite if all of its eigenvalues are non-negative. If \(\rho_1\) and \(\rho_2\) are positive semi-definite, then \(\rho_1 \otimes \rho_2\) is also positive semi-definite. This follows because: The eigenvalues of \(\rho_1 \otimes \rho_2\) are given by the products of the eigenvalues of \(\rho_1\) and \(\rho_2\).
+Since the eigenvalues of \(\rho_1\) and \(\rho_2\) are non-negative, their products will also be non-negative. Thus, \(\rho_1 \otimes \rho_2\) satisfies all the conditions of a density operator on \(\mathbb{H}_1 \otimes \mathbb{H}_2\).
+Hermiticity ensures an operator is equal to its own adjoint, which relates to its action on the Hilbert space. The trace is calculated over the entire Hilbert space and, in the tensor product form, involves both H1 and H2. Positive semi-definiteness requires the operator to have non-negative eigenvalues, which is assessed based on the space it operates on.
 
 \begin{question}
     \begin{enumerate}
@@ -62,6 +151,81 @@ title=QUESTION \thetcbcounter,#1}
     \end{enumerate}
 \end{question}
 
+\textbf{Solution 4:}
+\begin{enumerate}
+    \item[a)] To show that $A_1 \otimes A_2$ is an observable on the tensor product space $\mathbb{H_1}\otimes\mathbb{H_2}$ we need to verify that it satisfies the key properties of an observable:\\
+    1. Must be Hermitian meaning $(A_1 \otimes A_2)^\dagger=A_1 \otimes A_2$. Since $A_1$ and $A_2$ are observables, they are Hermitian by definition, so: $$A_1^\dagger = A_1 \quad \text{and} \quad A_2^\dagger = A_2$$ Using the property of the Kronecker product, the conjugate transpose $A_1 \otimes A_2$ is:
+    $$(A_1 \otimes A_2)^\dagger = A_1^\dagger \otimes A_2^\dagger.$$
+    Substituting $( A_1^\dagger = A_1)$ and $(A_2^\dagger = A_2)$, we get: $$(A_1 \otimes A_2)^\dagger = A_1 \otimes A_2.$$
+    This confirms that $A_1 \otimes A_2$ is Hermitian.\\
+    
+    2. Observables must have real eigenvalues. Since \( A_1 \) and \( A_2 \) are observables, their eigenvalues are real. The eigenvalues of \( A_1 \otimes A_2 \) are the products of the eigenvalues of \( A_1 \) and \( A_2 \). Since the product of real numbers is also real, the eigenvalues of \( A_1 \otimes A_2 \) are real.\\
+    
+    3. Observables also have orthogonal eigenvectors. Since \( A_1 \) and \( A_2 \) are Hermitian, their eigenvectors are orthogonal. The eigenvectors of \( A_1 \otimes A_2 \) are the tensor products of the eigenvectors of \( A_1 \) and \( A_2 \), which are also orthogonal in the tensor product space.\\
+    
+    Since \( A_1 \otimes A_2 \) satisfies the Hermitian property, has real eigenvalues, and its eigenvectors are orthogonal, it is a valid observable on the tensor product space \( H_1 \otimes H_2 \).
+    \item[b)] First we find Eigenvalues and Eigenstates of $\sigma_z \otimes I_B$.
+    The Pauli matrix \( \sigma_z \) has eigenvalues \( +1 \) and \( -1 \), with corresponding eigenstates \( |0\rangle \) and \( |1\rangle \), respectively. Since \( I_B \) is the identity operator, the eigenvalues of \( \sigma_z \otimes I_B \) are the same as those of \( \sigma_z \), but the eigenstates are now tensor products involving the basis states of \( H_B \). Specifically:
+
+    \begin{itemize}
+        \item For eigenvalue \( +1 \): The eigenstates are \( |0\rangle \otimes |b\rangle \), where \( |b\rangle \) is any state in \( H_B \). In the computational basis, these are \( |00\rangle \) and \( |01\rangle \).
+        \item For eigenvalue \( -1 \): The eigenstates are \( |1\rangle \otimes |b\rangle \), which in the computational basis are \( |10\rangle \) and \( |11\rangle \).
+    \end{itemize}
+    The state $ |\psi\rangle $ can be rewritten in terms of the eigenstates of $ \sigma_z \otimes I_B $:
+
+    \[
+    |\psi\rangle = \frac{1}{\sqrt{3}} (|00\rangle + |01\rangle + |10\rangle).
+    \]
+
+    This can be split into terms corresponding to the eigenvalues \( +1 \) and \( -1 \):
+
+    \[
+    |\psi\rangle = \frac{1}{\sqrt{3}} \left( |0\rangle \otimes (|0\rangle + |1\rangle) + |1\rangle \otimes |0\rangle \right).
+    \]
+Using the Born rule, the probability of measuring an eigenvalue \( \lambda_i \) is:
+
+\[
+P(\lambda_i) = |\langle v_i | \psi \rangle|^2,
+\]
+where \( |v_i\rangle \) are the eigenstates corresponding to \( \lambda_i \). The probabilities are:
+
+\begin{itemize}
+  \item For \( \lambda_1 = +1 \):
+  \[
+  P(\lambda_1) = |\langle 00 | \psi \rangle|^2 + |\langle 01 | \psi \rangle|^2 = \left|\frac{1}{\sqrt{3}}\right|^2 + \left|\frac{1}{\sqrt{3}}\right|^2 = \frac{1}{3} + \frac{1}{3} = \frac{2}{3}.
+  \]
+  \item For \( \lambda_2 = -1 \):
+  \[
+  P(\lambda_2) = |\langle 10 | \psi \rangle|^2 + |\langle 11 | \psi \rangle|^2 = \left|\frac{1}{\sqrt{3}}\right|^2 + 0 = \frac{1}{3}.
+  \]
+\end{itemize}
+
+After measurement, the state collapses to the projection of \( |\psi\rangle \) onto the eigenspace corresponding to the measured eigenvalue. The collapsed states are:
+
+\begin{itemize}
+  \item For \( \lambda_1 = +1 \): The projection of \( |\psi\rangle \) onto the eigenspace spanned by \( |00\rangle \) and \( |01\rangle \) is:
+  \[
+  P_1 |\psi\rangle = \frac{1}{\sqrt{3}} (|00\rangle + |01\rangle).
+  \]
+  To normalize this state, we divide by its norm:
+  \[
+  |\psi_1\rangle = \frac{P_1 |\psi\rangle}{\|P_1 |\psi\rangle\|} = \frac{1}{\sqrt{3 + 3}} (|00\rangle + |01\rangle) = \frac{1}{\sqrt{2}} (|00\rangle + |01\rangle).
+  \]
+
+  \item For \( \lambda_2 = -1 \): The projection of \( |\psi\rangle \) onto the eigenspace spanned by \( |10\rangle \) and \( |11\rangle \) is:
+  \[
+  P_{-1} |\psi\rangle = \frac{1}{\sqrt{3}} |10\rangle.
+  \]
+  To normalize this state, we divide by its norm:
+  \[
+  |\psi_{-1}\rangle = \frac{P_{-1} |\psi\rangle}{\|P_{-1} |\psi\rangle\|} = \frac{1}{\sqrt{3}} |10\rangle = |10\rangle.
+  \]
+\end{itemize}
+
+The observable \( \sigma_z \otimes I_B \) has eigenvalues \( \lambda_1 = 1 \) and \( \lambda_2 = -1 \), with corresponding eigenstates \( |00\rangle, |01\rangle \) and \( |10\rangle, |11\rangle \), respectively. The probabilities of measuring these eigenvalues are \( \frac{2}{3} \) and \( \frac{1}{3} \), and the post-measurement states are \( \frac{1}{\sqrt{2}} (|00\rangle + |01\rangle) \) and \( |10\rangle \), respectively. This demonstrates how measurement collapses the state into one of the eigenstates of the observable.
+
+\end{enumerate}
+
 \begin{question}
     \begin{enumerate}
         \item[a)] Let $U_i$ be a unitary operator on $\H_i$ for $i=1,2.$ Show that $U_1 \otimes U_2$ is a unitary operator on $H_1 \otimes H_2$.
@@ -69,29 +233,135 @@ title=QUESTION \thetcbcounter,#1}
     \end{enumerate}
 \end{question}
 
+\textbf{Solution 5:} 
+\begin{enumerate}
+    \item[a)] A unitary operator $U$ satisfies $U^\dagger U=UU^\dagger=I$. For $U_1 \otimes U_2$:\\
+    Since $U_1$ and $U_2$ are unitary operators, they satisfy: $$U_1^\dagger U_1 =I_1, \quad U_2^\dagger U_2=I_2$$ where $I_1$ and $I_2$ are identity operators on $\mathbb{H_1}$ and $\mathbb{H_2}$. For the tensor product $U_1 \otimes U_2$ we have: $$(U_1 \otimes U_2)^\dagger = U_1^\dagger \otimes U_2^\dagger$$ Thus: $$(U_1 \otimes U_2)^\dagger (U_1 \otimes U_2) = (U_1^\dagger \otimes U_2^\dagger)(U_1 \otimes U_2) = (U_1^\dagger U_1) \otimes (U_2^\dagger U_2) = I_1 \otimes I_2 = I$$
+    Similarly: $$(U_1 \otimes U_2)(U_1 \otimes U_2)^\dagger = (U_1 U_1^\dagger) \otimes (U_2 U_2^\dagger) = I_1 \otimes I_2 = I$$
+    Therefore, $U_1 \otimes U_2$ is unitary on $\mathbb{H}_1\otimes\mathbb{H}_2$
+    \item[b)] To provide an example of a unitary operator on $\mathbb{H} \otimes \mathbb{H}$ that is entangled (not of the form $U_1 \otimes U_2$), we can consider the SWAP gate. The SWAP gate is an entangled unitary operator that swaps two qubits. It is defined as follows:
+    $$\text{SWAP} = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1 \end{pmatrix}$$
+    The SWAP gate is unitary because its inverse is itself (it is its own transpose and complex conjugate), and the product of the matrix with its conjugate transpose results in the identity matrix. The SWAP gate is entangled because it cannot be written as the tensor product of two single-qubit unitary operators. It inherently involves operations across both qubits.
+\end{enumerate}
+
 \begin{question}
     Consider the two-qubit Hilbert space $\H_A \otimes \H_B$, each of the dimension 2, with the standard computational basis $\{\ket{00},\ket{01},\ket{10},\ket{11} \}.$ Define $$\ket{\psi}=\frac{1}{\sqrt{3}}(\ket{00}+\ket{01}+\ket{10}).$$ Let $$\rho_{AB}=\ket{\psi}\bra{\psi}$$ be the corresponding $4 \times 4$ density operator.
     \begin{enumerate}
         \item[a)]\textbf{Show it is Entangled.} Verify that $\ket{\psi}$ cannot be written as a product state $(\alpha\ket{0}+\beta\ket{1})\otimes(\gamma\ket{0}+\delta\ket{1})$ with fixed complex scalars $\alpha,\beta,\gamma,\delta$ satisfying $|\alpha|^2+|\beta|^2=1.$ Conclude that $\ket{\psi}$ is entangled.\\
         \textit{Hint:} Attempt to match coefficients of basis states and show there's no consistent solution unless one of them is zero--which doesn't match $\ket{\psi}$.
         \item[b)]\textbf{Compute the Partial Trace Over B.} Write $\rho_{AB}$ explicitly in the basis $\{\ket{00}, \ket{01}, \ket{10}, \ket{11} \},$ then compute $$\rho_A=tr_B(\rho_{AB}).$$ You may group the $4 \times 4$ matrix $\rho_{AB}$ into $2 \times 2$ blocks corresponding to subsystem B.
-        \item[c)] \textbf{Is the Reduced State Pure or Mixed?} Check whether $\rho_A$ is a rank-1 projector (i.e. pure). If not, it must be a mixed state. Comment on how $\rho_A$ being mixed reflects the entanglement of the global state $\ket{\psi}.$
+        \item[c)] \textbf{Is the Reduced State Pure or Mixed?} Check whether $\rho_A$ is a rank-1 projector (i.e. pure). If not, it must be a mixed state. Comment on how $\rho_A$ being mixed reflects the entanglement of the global state $\ket{\psi}.$ 
     \end{enumerate}
 \end{question}
+
+\textbf{Solution 6:}\\
+\begin{enumerate}
+    \item[a)] To show that the state $\ket{\psi}=\frac{1}{\sqrt{3}}(\ket{00}+\ket{01}+\ket{10})$ is entangled, we should not be able to express it as a product state $(\alpha\ket{0}+\beta\ket{1})\otimes(\gamma\ket{0}+\delta\ket{1})$. Expanding the product state, we get $$\ket{\psi}=\alpha\gamma\ket{00}+\alpha\delta\ket{01}+\beta\gamma\ket{10}+\beta\delta\ket{11}$$ Using the definition given of $\ket{\psi}$ we know the coefficients of the basis states which are:
+    \begin{itemize}
+        \item $\alpha\gamma=\frac{1}{\sqrt{3}}$
+        \item $\alpha\delta=\frac{1}{\sqrt{3}}$
+        \item $\beta\gamma=\frac{1}{\sqrt{3}}$
+        \item $\beta\delta=0$
+    \end{itemize}
+    \fbox{
+    \parbox{0.9\textwidth}{     
+    From this we know $\beta=0$ or $\delta=0$. \\
+    Case 1 ($\beta=0$): $\beta\gamma=\frac{1}{\sqrt{3}}=0$ which is a contradiction. \\
+    Case 2 ($\delta=0$): $\alpha\delta=\frac{1}{\sqrt{3}}=0$ which is also a contradiction. \\Since neither of these cases are possible we can conclude that $\ket{\psi}=\frac{1}{\sqrt{3}}(\ket{00}+\ket{01}+\ket{10})$ cannot express it as a product state and therefore is entangled.}}
+    \item[b)] To write $\rho_{AB}$ in the basis $\{\ket{00}, \ket{01}, \ket{10}, \ket{11} \}$ we need to compute $\bra{\psi}$ which is the conjugate transpose: $$\bra{\psi}=\frac{1}{\sqrt{3}}(\bra{00}+\bra{01}+\bra{10})$$ So $\rho_{AB}$ in that basis is: $$\rho_{AB}=\frac{1}{3}(\ket{00}+\ket{01}+\ket{10})(\bra{00}+\bra{01}+\bra{10})$$
+    To write $\ket{\psi}$ in the computational basis we get $$\ket{\psi}=\frac{1}{\sqrt{3}}\begin{pmatrix}
+        1 \\1\\1\\0
+    \end{pmatrix} \text{where $\bra{\psi}$ is the conjugate transpose} \bra{\psi}=\frac{1}{\sqrt{3}}\begin{pmatrix}
+        1 &1&1&0
+    \end{pmatrix} \text{ or $\ket{\psi}=\bra{\psi}^\dagger$}$$
+    We get $$\rho_{AB}=\ket{\psi} \cdot \bra{\psi} =\frac{1}{\sqrt{3}}\begin{pmatrix}
+        1 \\1\\1\\0
+    \end{pmatrix} \cdot \frac{1}{\sqrt{3}}\begin{pmatrix}
+        1 &1&1&0
+    \end{pmatrix} =\frac{1}{3}\begin{pmatrix}
+        1&1&1&0\\
+        1&1&1&0\\
+        1&1&1&0\\
+        0&0&0&0
+    \end{pmatrix}$$
+    To compute $\rho_A=tr_B(\rho_{AB})$, we partition $\rho_{AB}$ into $2\times2$ blocks corresponding to subsystem B: $$\rho_{AB}=\begin{pmatrix}
+        \text{tr}\begin{bmatrix}
+            \frac{1}{3} & \frac{1}{3}\\\frac{1}{3}&\frac{1}{3}
+        \end{bmatrix} & \text{tr}\begin{bmatrix}
+            \frac{1}{3} & 0\\\frac{1}{3}&0
+        \end{bmatrix}\\ \text{tr}\begin{bmatrix}
+            \frac{1}{3} & \frac{1}{3}\\0&0
+        \end{bmatrix} & \text{tr}\begin{bmatrix}
+            \frac{1}{3} & 0\\0&0
+        \end{bmatrix}
+    \end{pmatrix}$$ The partial trace $tr_B(\rho_{AB})$ is obtained by taking the trace of each block. $$\boxed{\rho_A=\begin{pmatrix}
+        \frac{1}{3}+\frac{1}{3} & \frac{1}{3}+0\\
+        \frac{1}{3}+0 & \frac{1}{3}+0
+    \end{pmatrix} =\begin{pmatrix}
+        \frac{2}{3} & \frac{1}{3}\\
+        \frac{1}{3} & \frac{1}{3}
+    \end{pmatrix}}$$
+    \item[c)] To determine the rank of $\rho_A$ we will find the eigenvalues represented by $\lambda$:
+    \begin{align*}
+        \det(\rho_A-\lambda I) & =0 \\
+        \det\begin{pmatrix}
+            \frac{2}{3}-\lambda&\frac{1}{3}\\
+            \frac{1}{3}&\frac{1}{3}-\lambda
+        \end{pmatrix} &=0\\
+        \left(\frac{2}{3}-\lambda \right)\left(\frac{1}{3}-\lambda\right)-\left(\frac{1}{3}\right)\left(\frac{1}{3}\right) &=0\\
+        \lambda^2-\lambda+\frac{1}{9} &=0
+    \end{align*}
+    \fbox{
+    \parbox{0.9\textwidth}{   
+    We get:
+    $$\lambda_1=\frac{3+\sqrt{5}}{6} \quad \lambda_2=\frac{3-\sqrt{5}}{6}$$
+    If we find only one non-zero eigenvalue, we know the rank -1 and the state is pure, if not then it is a mixed state. Therefore we know that the state is mixed as we have a rank of 2. The fact that $\rho_A$ is mixed indicates that the global state $\ket{\psi}$ is entangled with some other subsystem $\rho_B$. If $\rho_A$ was pure, then global state $\ket{\psi}$ would be a product state.}}
+\end{enumerate}
 
 \begin{question}
     We have four qubits A, B, C, D, with two disjoint pairs (A, B) and (C, D) initially prepared in the Bell state $$\ket{\Phi^+}=\frac{1}{\sqrt{2}}(\ket{00}+\ket{11}).$$ Hence the entire 4-qubit system is $$\ket{\Psi}_{ABCD}=(\ket{\Phi^+}_{AB})\otimes(\ket{\Phi^+}_{CD}).$$ We will \textit{measure only qubits} B, C, with a Hermitian observable $M_{BC}$. Recall that in the full space, this is represented by $$\underbrace{\mathbb{I}_A}_{2\times 2} \otimes \underbrace{M_{BC}}_{4\times 4} \otimes \underbrace{\mathbb{I}_D}_{2\times 2},$$ a $16\times 16$ operator which acts trivially on qubits A and D.
     \begin{enumerate}
         \item[a)]\textbf{Defining $M_{BC}$ as a Bell-measurement operator.}\\
-        let the four Bell states for qubits (B,C) be $$\ket{\Phi^\pm}=\frac{1}{\sqrt{2}}(\ket{00}\pm\ket{11}), \quad \ket{\Psi}=\frac{1}{\sqrt{2}}(\ket{01}\pm\ket{10}).$$ Define the Hermitian operator on B, C: $$M_{BC}=0\Phi^+\Phi^++1\Phi^-\Phi^-+2\Psi^+\Psi^++3\Psi^-\Psi^-.$$ Explain why each $\ket{\Phi^\pm},\ket{\Psi^\pm}$ is an eigenvector of $M_{BC}$, and why this operator has distinct eigenvalues 0,1,2,3.
+        let the four Bell states for qubits (B,C) be $$\ket{\Phi^\pm}=\frac{1}{\sqrt{2}}(\ket{00}\pm\ket{11}), \quad \ket{\Psi^\pm}=\frac{1}{\sqrt{2}}(\ket{01}\pm\ket{10}).$$ Define the Hermitian operator on B, C: $$M_{BC}=0\Phi^+\Phi^++1\Phi^-\Phi^-+2\Psi^+\Psi^++3\Psi^-\Psi^-.$$ Explain why each $\ket{\Phi^\pm},\ket{\Psi^\pm}$ is an eigenvector of $M_{BC}$, and why this operator has distinct eigenvalues 0,1,2,3.
         \item[b)]\textbf{Measuring $\mathbb{I}_A \otimes M_{BC} \otimes \mathbb{I}_D$ on the state $\ket{\Psi}_{ABCD}$}.
         \begin{enumerate}
             \item[i)] Expand $\ket{\Psi}_{ABCD}$ in the Bell basis of (B, C). Show each Bell outcome $\{\Phi^+,\Phi^-,\Psi^+\Psi^-\}$ occurs with the probability 1/4 when measuring the observable $\mathbb{I}_A \otimes M_{BC} \otimes \mathbb{I}_D$.
-            \item[ii)] Determine the post-measurement staet of (A,D) for each outcome. Conclude that (A,D) end up in one of the four Bell states (thus entangled) even though A was initially entangled only with B, and C was entangled only with D.
+            \item[ii)] Determine the post-measurement state of (A,D) for each outcome. Conclude that (A,D) end up in one of the four Bell states (thus entangled) even though A was initially entangled only with B, and C was entangled only with D.
         \end{enumerate}
         \item[c)]\textbf{Discussion.}\\
         Briedly discuss how $\mathbb{I_A}\otimes M_{BC} \otimes \mathbb{I_D}$ is formally a $16\times16$ operator acting on A, B, C, D. However, because it factorizes as the identity on A and D, it "probes" only the degrees of freedom in B, C. In this way, we effectively \textit{measure qubits} B, C (and not A or D). This measurement "swaps" entanglement so that (A, D) end up entangled.
     \end{enumerate}
 \end{question}
+
+\textbf{Solution 7:}
+\begin{enumerate}
+    \item[a)] Each bell state $\ket{\Phi^\pm},\ket{\Psi^\pm}$ is an eigenvector of $M_{BC}$ because when $M_{BC}$ acts on these bell states, they are scaled by a corresponding eigenvalue, meaning they are not transformed into a different state but remain in the same form, merely multiplied by a factor. $M_{BC}$ is constructed using outer products of the bell states, and these outer products serve as projectors onto the corresponding Bell state. So when we take an example such applying $M_{BC}$ on $\ket{\Phi^+}$ we get: $$M_{BC}\ket{\Phi^+}=0\ket{\Phi^+}.$$ This shows that $\ket{\Phi^+}$ is the eigenvector of $M_{BC}$ with an eigenvalue of 0. Similarly, for each of the other Bell states, the operator applies a factor (0, 1, 2, or 3) according to the definition of $M_{BC}$ making them distinct eigenvalues corresponding to each Bell state.\\  
+    Applying $M_{BC}$ onto each Bell state Yields the eigenvector with eigenvalue:\\
+            $$M_{BC}\ket{\Phi^+} = 0\ket{\Phi^+} \rightarrow \ket{\Phi^+} \text{ with eigenvalue 0} \qquad M_{BC}\ket{\Phi^-} = 0\ket{\Phi^-} \rightarrow \ket{\Phi^-} \text{ with eigenvalue 1}$$
+            $$M_{BC}\ket{\Psi^+} = 0\ket{\Psi^+} \rightarrow \ket{\Psi^+} \text{ with eigenvalue 2} \qquad M_{BC}\ket{\Psi^-} = 0\ket{\Psi^+} \rightarrow \ket{\Psi^-} \text{ with eigenvalue 3}$$
+    \item[b)]
+    \begin{enumerate}
+        \item[i)] The state \( |\Psi\rangle_{ABCD} \) is initially prepared as: $$|\Psi\rangle_{ABCD} = (|\Phi^+\rangle_{AB}) \otimes (|\Phi^+\rangle_{CD}) = \frac{1}{2} (|0000\rangle + |0011\rangle + |1100\rangle + |1111\rangle)$$
+        Expanding this state in the Bell basis of qubits (B, C):
+        $$|00\rangle_{BC} = \frac{1}{\sqrt{2}} (|\Phi^+\rangle_{BC} + |\Phi^-\rangle_{BC})$$
+        $$|11\rangle_{BC} = \frac{1}{\sqrt{2}} (|\Phi^+\rangle_{BC} - |\Phi^-\rangle_{BC}$$
+        $$|01\rangle_{BC} = \frac{1}{\sqrt{2}} (|\Psi^+\rangle_{BC} + |\Psi^-\rangle_{BC})$$
+        $$|10\rangle_{BC} = \frac{1}{\sqrt{2}} (|\Psi^+\rangle_{BC} - |\Psi^-\rangle_{BC})$$
+        Substituting these into the state \( |\Psi\rangle_{ABCD} \), we get:
+        $$|\Psi\rangle_{ABCD} = \frac{1}{2\sqrt{2}} \left( |0\rangle \otimes |\Phi^+\rangle_{BC} \otimes |0\rangle + |0\rangle \otimes |\Phi^-\rangle_{BC} \otimes |0\rangle + \cdots \right)$$
+
+        Each term in this expansion corresponds to one of the Bell states of \( (B, C) \). Since each Bell state appears twice in the expansion, the probability of measuring each Bell state is:
+        $$P(\Phi^+) = P(\Phi^-) = P(\Psi^+) = P(\Psi^-) = \frac{1}{4}$$
+        \item[ii)] After measuring qubits (B, C) and obtaining one of the Bell states, the post-measurement state of qubits $(A, D)$  will also collapse to the same Bell state. For example, if the measurement outcome is $|\Phi^+\rangle_{BC}$, the surviving terms in the state $|\Psi\rangle_{ABCD}$ are: $$|0\rangle \otimes |0\rangle + |1\rangle \otimes |1\rangle$$
+        This corresponds to the Bell state \( |\Phi^+\rangle_{AD} \). Similarly, for other measurement outcomes, \( (A, D) \) will collapse to the corresponding Bell state. Thus, even though qubits \( A \) and \( D \) were initially entangled only with \( B \) and \( C \) respectively, the measurement of \( (B, C) \) results in \( (A, D) \) becoming entangled.
+
+    \end{enumerate}
+    \item[c)] The operator \( I_A \otimes M_{BC} \otimes I_D \) is a \( 16 \times 16 \) matrix acting on the entire 4-qubit system. However, since it factorizes as the identity on qubits \( A \) and \( D \), it effectively only probes the degrees of freedom in qubits \( B \) and \( C \). This means that the measurement operation only affects qubits \( B \) and \( C \), leaving \( A \) and \( D \) unchanged in terms of their individual states. However, the measurement of \( (B, C) \) causes the entanglement to "swap" such that qubits \( (A, D) \) become entangled. This demonstrates how measuring a subset of qubits in a larger entangled system can redistribute entanglement among the remaining qubits.
+
+\end{enumerate}
 
 \end{document}
